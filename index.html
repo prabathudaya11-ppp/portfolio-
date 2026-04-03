@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Management System - University of Ruhuna</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-blue: #003366;
+            --secondary-blue: #004d99;
+            --university-green: #228B22;
+            --light-green: #90EE90;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-gray);
+        }
+
+        /* Navigation */
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--white) !important;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.9) !important;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 0 5px;
+        }
+
+        .nav-link:hover {
+            color: var(--light-green) !important;
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            color: var(--light-green) !important;
+            border-bottom: 2px solid var(--university-green);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--university-green) 100%);
+            color: white;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/></svg>');
+            background-size: 100px 100px;
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .btn-hero {
+            background-color: var(--university-green);
+            color: white;
+            padding: 12px 30px;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-hero:hover {
+            background-color: #1a6b1a;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Feature Cards */
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--university-green);
+            height: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            color: var(--primary-blue);
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            color: var(--primary-blue);
+            font-weight: 800;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--university-green);
+            border-radius: 2px;
+        }
+
+        /* Cards */
+        .custom-card {
+            background: white;
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .custom-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-title {
+            color: var(--primary-blue);
+            font-weight: 700;
+        }
+
+        .btn-custom {
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background-color: var(--university-green);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Tables */
+        .table-custom {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .table-custom thead {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            color: white;
+        }
+
+        .table-custom th {
+            font-weight: 600;
+            border: none;
+            padding: 15px;
+        }
+
+        .table-custom td {
+            padding: 15px;
+            vertical-align: middle;
+        }
+
+        .table-custom tbody tr:hover {
+            background-color: rgba(34, 139, 34, 0.05);
+        }
+
+        .status-badge {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-upcoming {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .status-ongoing {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status-completed {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+
+        /* Forms */
+        .form-container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .form-control {
+            border-radius: 10px;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--university-green);
+            box-shadow: 0 0 0 0.2rem rgba(34, 139, 34, 0.25);
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #002244 100%);
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 80px;
+        }
+
+        .footer-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .footer-links a:hover {
+            color: var(--light-green);
+        }
+
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: var(--university-green);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 30px;
+            padding-top: 20px;
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Login Page Special */
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--university-green) 100%);
+            padding: 20px;
+        }
+
+        .login-box {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .login-logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-logo i {
+            font-size: 4rem;
+            color: var(--primary-blue);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .login-box {
+                padding: 30px;
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Search Box */
+        .search-box {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .search-box input {
+            padding-left: 45px;
+            border-radius: 25px;
+            border: 2px solid #e9ecef;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-blue);
+        }
+
+        /* Modal */
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            color: white;
+        }
+
+        .modal-title {
+            font-weight: 700;
+        }
+
+        .btn-close {
+            filter: brightness(0) invert(1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-trophy-fill me-2"></i>
+                UoR Sports
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="sports.html">Sports</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events.html">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="teams.html">Teams</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html"><i class="bi bi-person-circle me-1"></i>Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container hero-content">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8 animate-fade-in">
+                    <h1 class="hero-title">Sports Management System</h1>
+                    <h2 class="mb-4">University of Ruhuna</h2>
+                    <p class="hero-subtitle">
+                        Empowering athletic excellence through innovative management solutions. 
+                        Streamline sports activities, events, and team coordination with our comprehensive digital platform.
+                    </p>
+                    <a href="sports.html" class="btn btn-hero btn-lg me-3">
+                        <i class="bi bi-grid-3x3-gap-fill me-2"></i>Explore Sports
+                    </a>
+                    <a href="events.html" class="btn btn-outline-light btn-lg">
+                        <i class="bi bi-calendar-event me-2"></i>View Events
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-5 my-5">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">System Features</h2>
+                <p class="text-muted">Comprehensive tools for managing university sports</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-calendar-check-fill"></i>
+                        </div>
+                        <h4 class="feature-title">Event Management</h4>
+                        <p class="text-muted">
+                            Schedule, organize, and track sporting events seamlessly. 
+                            From inter-faculty tournaments to national competitions.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-people-fill"></i>
+                        </div>
+                        <h4 class="feature-title">Team Management</h4>
+                        <p class="text-muted">
+                            Manage team rosters, track player statistics, and coordinate 
+                            practice schedules all in one place.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-person-vcard-fill"></i>
+                        </div>
+                        <h4 class="feature-title">Player Records</h4>
+                        <p class="text-muted">
+                            Maintain comprehensive athlete profiles, performance metrics, 
+                            and achievement histories securely.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-5" style="background: white;">
+        <div class="container">
+            <div class="row text-center g-4">
+                <div class="col-md-3 col-6">
+                    <h2 class="display-4 fw-bold text-primary">15+</h2>
+                    <p class="text-muted">Sports Categories</p>
+                </div>
+                <div class="col-md-3 col-6">
+                    <h2 class="display-4 fw-bold text-success">50+</h2>
+                    <p class="text-muted">Active Teams</p>
+                </div>
+                <div class="col-md-3 col-6">
+                    <h2 class="display-4 fw-bold text-primary">1000+</h2>
+                    <p class="text-muted">Student Athletes</p>
+                </div>
+                <div class="col-md-3 col-6">
+                    <h2 class="display-4 fw-bold text-success">100+</h2>
+                    <p class="text-muted">Annual Events</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest Events Preview -->
+    <section class="py-5 my-5">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Upcoming Events</h2>
+                <p class="text-muted">Don't miss these exciting competitions</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="custom-card">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="status-badge status-upcoming">Upcoming</span>
+                                <small class="text-muted"><i class="bi bi-calendar me-1"></i>Mar 15, 2026</small>
+                            </div>
+                            <h5 class="card-title">Inter-Faculty Cricket Tournament</h5>
+                            <p class="card-text text-muted">
+                                Annual cricket championship featuring all faculties competing for the prestigious trophy.
+                            </p>
+                            <p class="mb-2"><i class="bi bi-geo-alt-fill text-success me-2"></i>University Ground</p>
+                            <a href="events.html" class="btn btn-custom btn-sm">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="custom-card">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="status-badge status-upcoming">Upcoming</span>
+                                <small class="text-muted"><i class="bi bi-calendar me-1"></i>Mar 22, 2026</small>
+                            </div>
+                            <h5 class="card-title">Swimming Championship</h5>
+                            <p class="card-text text-muted">
+                                University swimming meet with multiple categories including freestyle, backstroke, and relay.
+                            </p>
+                            <p class="mb-2"><i class="bi bi-geo-alt-fill text-success me-2"></i>University Pool</p>
+                            <a href="events.html" class="btn btn-custom btn-sm">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="custom-card">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="status-badge status-upcoming">Upcoming</span>
+                                <small class="text-muted"><i class="bi bi-calendar me-1"></i>Apr 05, 2026</small>
+                            </div>
+                            <h5 class="card-title">Track & Field Meet</h5>
+                            <p class="card-text text-muted">
+                                Annual athletics competition featuring sprints, long jump, discus throw, and marathon.
+                            </p>
+                            <p class="mb-2"><i class="bi bi-geo-alt-fill text-success me-2"></i>Athletics Stadium</p>
+                            <a href="events.html" class="btn btn-custom btn-sm">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <a href="events.html" class="btn btn-outline-primary rounded-pill px-4">
+                    View All Events <i class="bi bi-arrow-right ms-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="footer-brand">
+                        <i class="bi bi-trophy-fill me-2"></i>
+                        Sports Management System
+                    </div>
+                    <p class="mb-3">
+                        University of Ruhuna<br>
+                        Matara, Sri Lanka
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5 class="mb-3">Quick Links</h5>
+                    <div class="footer-links">
+                        <a href="index.html">Home</a>
+                        <a href="sports.html">Sports</a>
+                        <a href="events.html">Events</a>
+                        <a href="teams.html">Teams</a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5 class="mb-3">Resources</h5>
+                    <div class="footer-links">
+                        <a href="#">Guidelines</a>
+                        <a href="#">Facilities</a>
+                        <a href="#">Coaching Staff</a>
+                        <a href="#">Achievements</a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h5 class="mb-3">Contact Info</h5>
+                    <p><i class="bi bi-telephone me-2"></i> +94 41 123 4567</p>
+                    <p><i class="bi bi-envelope me-2"></i> sports@ruhuna.ac.lk</p>
+                    <p><i class="bi bi-clock me-2"></i> Mon - Fri: 8:00 AM - 5:00 PM</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 University of Ruhuna. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Add active class to current navigation item
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                if(link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+            
+            // Add scroll animation
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe feature cards
+            document.querySelectorAll('.feature-card').forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = `all 0.6s ease ${index * 0.1}s`;
+                observer.observe(card);
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
